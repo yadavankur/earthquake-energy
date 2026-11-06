@@ -1,0 +1,101 @@
+/* Base reset for a standalone page */
+:root { color-scheme: light; }
+body { margin: 0; }
+
+/* Layout: a seismograph-paper deck. One slide fills the screen; text on top, a canvas "drum" below, controls fixed at the bottom. */
+:root {
+  --paper: #f3f1ec;
+  --paper-2: #e8e5dd;
+  --grid: #d9d4c8;
+  --ink: #1d2327;
+  --ink-soft: #5a6166;
+  --count: #2c6e8f;
+  --energy: #c0661c;
+  --mark: #8a2f2f;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15191c; --paper-2: #1d2226; --grid: #2a3035; --ink: #e9e6df; --ink-soft: #9aa2a7;
+    --count: #6fb3d4; --energy: #ee9a4f; --mark: #e27a6e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15191c; --paper-2: #1d2226; --grid: #2a3035; --ink: #e9e6df; --ink-soft: #9aa2a7;
+  --count: #6fb3d4; --energy: #ee9a4f; --mark: #e27a6e; color-scheme: dark;
+}
+html, body { height: 100%; }
+body {
+  background: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+.deck { position: relative; height: 100%; display: flex; flex-direction: column; }
+.slides { position: relative; flex: 1; min-height: 0; }
+.slide {
+  position: absolute; inset: 0;
+  overflow-y: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 24px 16px;
+  display: flex; flex-direction: column; gap: 14px;
+  max-width: 880px; margin: 0 auto;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.slide:not(.active) { opacity: 0; transform: translateX(24px); pointer-events: none; visibility: hidden; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--mark);
+}
+h1, h2 { font-family: var(--font-display); font-weight: 800; line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h1 { font-size: clamp(36px, 8vw, 68px); }
+h2 { font-size: clamp(28px, 5.5vw, 46px); }
+p { margin: 0; max-width: 62ch; color: var(--ink); }
+p.soft { color: var(--ink-soft); }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.c { color: var(--count); font-weight: 600; }
+.e { color: var(--energy); font-weight: 600; }
+.drum {
+  flex: 1; min-height: 240px; position: relative;
+  background: var(--paper); border: 1px solid var(--grid); border-radius: 4px;
+}
+.drum canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.fact { border-top: 2px solid var(--ink); padding-top: 6px; min-width: 0; }
+.fact b { display: block; font-family: var(--font-display); font-size: 26px; font-weight: 700; line-height: 1.1; }
+.fact span { font-size: 13px; color: var(--ink-soft); }
+.slider-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.slider-row label { font-family: var(--font-mono); font-size: 13px; }
+.slider-row input { flex: 1; min-width: 160px; accent-color: var(--mark); }
+.readout { font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.controls {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px 12px;
+  border-top: 1px solid var(--grid); background: var(--paper);
+}
+.controls button {
+  font: 600 15px var(--font-body); color: var(--ink); background: var(--paper-2);
+  border: 1px solid var(--grid); border-radius: 999px; padding: 9px 18px; cursor: pointer; min-width: 84px;
+}
+.controls button:disabled { opacity: .35; cursor: default; }
+.controls button:focus-visible, input:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+.dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--grid); transition: background .2s, transform .2s; }
+.dots i.on { background: var(--mark); transform: scale(1.3); }
+.replay {
+  align-self: flex-start; font: 500 13px var(--font-mono); color: var(--ink-soft); background: none;
+  border: 1px solid var(--grid); border-radius: 4px; padding: 4px 10px; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) { .slide { transition: none; } }

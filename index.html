@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Hundred Taps or One Blow</title>
+<meta name="description" content="An animated slideshow showing why one great earthquake releases more energy than thousands of small ones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="deck">
+  <div class="slides" id="slides">
+
+    <section class="slide active" data-anim="trace">
+      <div class="eyebrow">Earthquake energy · 9 slides</div>
+      <h1>A hundred taps or one blow?</h1>
+      <p>A goldsmith taps a hundred times. A blacksmith swings once. Earth does both: thousands of small tremors and the occasional great quake. Which one moves more energy?</p>
+      <div class="drum"><canvas></canvas></div>
+      <p class="soft">Swipe, use the arrow keys, or tap Next.</p>
+    </section>
+
+    <section class="slide" data-anim="circles">
+      <div class="eyebrow">1 · What magnitude measures</div>
+      <h2>Each step up is about 32 times more energy</h2>
+      <p>Magnitude is a logarithmic scale. Going from M7 to M8 multiplies the released energy by about <span class="e num">31.6</span>. Two steps multiply it by about <span class="e num">1,000</span>.</p>
+      <div class="drum"><canvas></canvas></div>
+      <div class="facts">
+        <div class="fact"><b class="num">1 M8</b><span>≈ 32 M7 quakes</span></div>
+        <div class="fact"><b class="num">1 M8</b><span>≈ 1,000 M6 quakes</span></div>
+        <div class="fact"><b class="num">≈15 Mt</b><span>TNT equivalent of seismic waves from one M8</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-anim="counts">
+      <div class="eyebrow">2 · How often they happen</div>
+      <h2>Each step down is 10 times more common</h2>
+      <p>This is the Gutenberg-Richter law, seen in earthquake catalogs worldwide. Expected counts per century, scaled from about 100 M8 quakes:</p>
+      <div class="drum"><canvas></canvas></div>
+      <p class="soft">Log scale: each gridline is 10 times the one below. Counts below M5 are theoretical, because small quakes in remote areas go unrecorded.</p>
+    </section>
+
+    <section class="slide" data-anim="race">
+      <div class="eyebrow">3 · The race</div>
+      <h2>Two exponentials pulling in opposite directions</h2>
+      <p>Going up one magnitude, the <span class="c">number of quakes</span> drops 10 times, while the <span class="e">energy of each one</span> rises about 32 times. The <span class="e">total energy</span> of that magnitude band therefore still rises about 3.2 times.</p>
+      <div class="drum"><canvas></canvas></div>
+      <p class="soft">The total rises because 32 is bigger than 10. Small quakes lose the race at every step.</p>
+    </section>
+
+    <section class="slide" data-anim="stack">
+      <div class="eyebrow">4 · A century's total</div>
+      <h2>The great quakes outweigh everything else</h2>
+      <p>Energy per century by magnitude, in units of one M8 quake. Every quake from M3 to M8 stacked together comes to about <span class="num">147</span> units. The M9 band alone comes to about <span class="e num">316</span>.</p>
+      <div class="drum"><canvas></canvas></div>
+    </section>
+
+    <section class="slide" data-anim="ladder">
+      <div class="eyebrow">5 · Something you can picture</div>
+      <h2>Seismic energy next to things you know</h2>
+      <p>Each row pairs a magnitude with an event of similar energy. Bars use a log scale, so each gridline is 10 times the one before.</p>
+      <div class="drum" style="min-height:340px"><canvas></canvas></div>
+      <div class="facts">
+        <div class="fact"><b class="num">98 J</b><span>a 10 kg lead ball dropped from 1 m, around M −1.9</span></div>
+        <div class="fact"><b class="num">11.2 km/s</b><span>a 10 kg lead ball falling from infinitely far away, no air: only M2.7</span></div>
+        <div class="fact"><b class="num">20 km/s</b><span>the speed a 10 kg lead ball needs to match M3, about meteoroid speed</span></div>
+      </div>
+      <p class="soft">Seismic energy comes from log E = 1.5 M + 4.8 (joules) and counts only the radiated waves. The comparisons match energy, not damage.</p>
+    </section>
+
+    <section class="slide" data-anim="slider">
+      <div class="eyebrow">6 · Try it yourself</div>
+      <h2>What if small quakes were even more common?</h2>
+      <p>The ratio of small to large quakes is the <em>b-value</em>. Real regions sit between about <span class="num">0.8</span> and <span class="num">1.2</span>. Drag it and watch where the energy goes.</p>
+      <div class="slider-row">
+        <label for="b">b = <span id="bval" class="num">1.00</span></label>
+        <input id="b" type="range" min="0.5" max="2" step="0.05" value="1">
+      </div>
+      <div class="drum"><canvas></canvas></div>
+      <p class="readout" id="bread"></p>
+    </section>
+
+    <section class="slide" data-anim="timeline">
+      <div class="eyebrow">7 · The real record, 1900–2026</div>
+      <h2>Five giants in 126 years</h2>
+      <p>The statistics predict about 10 M9 quakes per century. The real record has 5 since 1900, so the biggest events are even rarer than a simple extrapolation suggests. They still dominate: the 1960 Chile quake alone is often estimated at roughly a quarter of all seismic energy released since 1900.</p>
+      <div class="drum"><canvas></canvas></div>
+      <p class="soft">Circle area is proportional to energy. Chile's M9.5 released about 5.6 times as much energy as Tohoku's M9.0–9.1.</p>
+    </section>
+
+    <section class="slide" data-anim="trace2">
+      <div class="eyebrow">8 · The answer</div>
+      <h2>One blow wins</h2>
+      <p>Small quakes are far more common, but not common enough. Every step down in magnitude gives 10 times as many quakes, and each one carries about 32 times less energy. Added up, the small quakes fall short at every step.</p>
+      <div class="facts">
+        <div class="fact"><b class="num">×10</b><span>more quakes per step down</span></div>
+        <div class="fact"><b class="num">÷32</b><span>energy per quake per step down</span></div>
+        <div class="fact"><b class="num">÷3.2</b><span>total band energy per step down</span></div>
+      </div>
+      <div class="drum"><canvas></canvas></div>
+    </section>
+
+  </div>
+  <nav class="controls" aria-label="Slide navigation">
+    <button id="prev" type="button">Back</button>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <button id="next" type="button">Next</button>
+  </nav>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
